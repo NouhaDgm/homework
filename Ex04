@@ -1,1 +1,89 @@
+#include<iostream>
+#include<string>
+using namespace std;
+typedef struct product product;
+struct product{
+	string code;
+	float price,weight;
+};
+void initiaproductref(product &p);
+void modifyproductref(product &p);
+void displayproductref(product &p);
+void initiaproductadd(product *p);
+void modifyproductadd(product *p);
+void displayproductadd(product *p);
+product initiaproductva(product p);
+product modifyproductva(product p);
+void displayproductva(product p);
+int main(){
+	product *M1=new product;
+	product *M2=new product;
+    *M1=initiaproductva(*M1);
+	*M2=initiaproductva(*M2);
+	*M1=modifyproductva(*M1);
+	*M2=modifyproductva(*M2);
+    displayproductva(*M1);
+	displayproductva(*M2);
+	initiaproductref(*M1);
+	initiaproductref(*M2);
+	modifyproductref(*M1);
+	modifyproductref(*M2);
+	displayproductref(*M1);
+	displayproductref(*M2);
+	initiaproductadd(M1);
+	initiaproductadd(M2);
+	modifyproductadd(M1);
+	modifyproductadd(M2);
+	displayproductadd(M1);
+	displayproductadd(M2);
+	delete M1;
+	delete M2;
+	return 0;}
+product initiaproductva(product p){
+	cout<<"enter the product informations"<<endl;
+	cin>>p.code;  //enter the code
+	cin>>p.price; //enter the price
+	cin>>p.weight; //enter the weight
+  return p;}
+  product modifyproductva(product p){
+  	cout<<"these are the privious informations:"<<endl;
+  	displayproductva(p);
+  	cin>>p.code;
+  	cin>>p.price;
+  	cin>>p.weight;
+  	return p;}
+  void displayproductva(product p){
+  	cout<<"the product informations: code: "<<p.code <<",price :"<<p.price<<",weight: "<<p.weight<<endl;
+  }
+  void initiaproductref(product &p){
+  	cout<<"enter the product informations"<<endl;
+	cin>>p.code;  //enter the code
+	cin>>p.price; //enter the price
+	cin>>p.weight; //enter the weight
+  }
+  void modifyproductref(product &p){
+  	cout<<"these are the privious informations:"<<endl;
+  	displayproductva(p);
+  	cin>>p.code;
+  	cin>>p.price;
+  	cin>>p.weight;
+  }
+  void displayproductref(product &p){
+  		cout<<"the product informations: code: "<<p.code <<",price :"<<p.price<<",weight: "<<p.weight<<endl;
+  }
+  void initiaproductadd(product *p){
+  		cout<<"enter the product informations"<<endl;
+  		cin>>p->code; //enter code
+  		cin>>p->price; //enter price
+  		cin>>p->weight;//enter weight
+  }
+  void modifyproductadd(product *p){
+  	displayproductadd(p);
+  	cin>>p->code;
+  	cin>>p->price;
+  	cin>>p->weight;
+  }
+  void displayproductadd(product *p){
+  		cout<<"the product informations: code: "<<p->code <<",price :"<<p->price<<",weight: "<<p->weight<<endl;
+  }
 
