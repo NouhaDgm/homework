@@ -1,0 +1,67 @@
+#include<iostream>
+using namespace std;
+void fillmatrix(int **M,int N);
+void swapmatrix(int **M,int **X,int N);
+int main(){
+	int N;
+	cout<<"enter N"<<endl;
+	cin>>N;
+	int **A=new int*[N];
+	int **B=new int*[N];
+	for(int i=0;i<N;i++){
+		A[i]=new int[N];
+		B[i]=new int[N];
+		}
+		cout<<"fill the matrix A"<<endl;
+	fillmatrix(A,N);
+	cout<<"fill the matrix B"<<endl;
+	fillmatrix(B,N);
+	swapmatrix(A,B,N);
+	for(int i=0;i<N;i++){
+		delete[] A[i];
+		delete[] B[i]; 
+	}
+	delete[] A;
+	delete[] B;	
+	return 0;
+}
+void fillmatrix(int **M,int N){
+	for(int i=0;i<N;i++){
+		for(int j=0;j<N;j++){
+			cin>>M[i][j];
+		}
+	}
+}
+void swapmatrix(int **M,int **X,int N){
+	int i1=0,i2=0,j1=0,j2=0;
+  int min1=X[0][0];
+  int min2=M[0][0];
+  for(int i=0;i<N;i++){
+    for(int j=0;j<N;j++){
+       if (min2>M[i][j]){
+        min2=M[i][j];
+        i2=i;
+        j2=j;
+       }
+       if(min1>X[i][j]){
+        min1=X[i][j];
+        i1=i;
+        j1=j;
+       }
+  }}
+  cout<<"the min in B is "<<min1<<" and the min in A is "<<min2<<endl;
+  M[i1][j1]=min1;
+  X[i2][j2]=min2;
+  cout<<"this the first matrix"<<endl;
+  for(int i=0;i<N;i++){
+  	for(int j=0;j<N;j++){
+  		cout<<M[i][j]<<"  "<<endl;
+	  }
+  }
+  cout<<"this is the second matrix"<<endl;
+   for(int i=0;i<N;i++){
+  	for(int j=0;j<N;j++){
+  		cout<<X[i][j]<<" "<<endl;
+	  }
+  }
+} 
