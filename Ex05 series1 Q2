@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+// Global matrices
+int **A=NULL;
+int **B=NULL;
+void fillmatrixA(int N);
+void fillmatrixB(int N);
+void swapmatrix(int N);
+int main() {
+    int N;
+    cout << "Enter N: ";
+    cin >> N;
+    A = new int*[N];
+    B = new int*[N];
+    for (int i = 0; i < N; i++) {
+        A[i] = new int[N];
+        B[i] = new int[N];
+    }
+    cout << "Fill the matrix A:" << endl;
+    fillmatrixA(N);
+    cout << "Fill the matrix B:" << endl;
+    fillmatrixB(N);
+    swapmatrix(N);
+    for (int i = 0; i < N; i++) {
+        delete[] A[i];
+        delete[] B[i];
+    }
+    delete[] A;
+    delete[] B;
+    return 0;
+}
+void fillmatrixA(int N) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >>A[i][j];
+        }
+    }
+}
+void fillmatrixB(int N) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >>B[i][j];
+        }
+    }
+}
+void swapmatrix(int N) {
+    int minA = A[0][0], minB = B[0][0];
+    int minAi = 0, minAj = 0, minBi = 0, minBj = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (A[i][j] < minA) {
+                minA = A[i][j];
+                minAi = i;
+                minAj = j;
+            }
+        }
+    }
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (B[i][j] < minB) {
+                minB = B[i][j];
+                minBi = i;
+                minBj = j;
+            }
+        }
+    }
+    A[minAi][minAj] = minB;
+    B[minBi][minBj] = minA;
+    cout << "The minimum in B is " << minB << " and the minimum in A is " << minA << endl;
+    cout << "Matrix A after swap:" << endl;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cout << A[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << "Matrix B after swap:" << endl;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+        	cout<<B[i][j]<< " ";
+			}
+			 cout << endl;
+        }
+    }
