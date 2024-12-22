@@ -1,0 +1,116 @@
+#include<iostream>
+using namespace std;
+typedef struct process process;
+struct process {
+    int id;
+    int prior;
+    process* next;
+};
+process* createlist(int N);
+void displaylist(process** array, int M);
+void reverseAllLists(process** array, int M);
+process* reverseList(process* head);
+void removepriority(process** array, int M, int val);
+void freelist(process** array, int M);
+int main() {
+    int M, N, val;
+    cout << "Enter the number of linear lists: ";
+    cin >> M;
+    cout << "Enter the number of processes per list: ";
+    cin >> N;
+    process** array = new process*[M];
+    for (int i = 0; i < M; i++) {
+        array[i] = createlist(N);
+    }
+    cout << "Initial lists:"<<endl;
+    displaylist(array, M);
+    reverseAllLists(array, M);
+    cout << "The lists after reversal:"<<endl;
+    displaylist(array, M);
+    cout << "Enter priority to remove: "<<endl;
+    cin >> val;
+    removepriority(array, M, val);
+    cout << "The lists after removing priority " << val << ":"<<endl;
+    displaylist(array, M);
+    freelist(array, M);
+    delete[] array;
+    return 0;
+}
+process* createlist(int N) {
+    process* head = NULL;
+    for (int i = 0; i < N; ++i) {
+        int idp, prt;
+        process* newnode = new process;
+        cout << "Enter the ID of process: ";
+        cin >> idp;
+        newnode->id = idp;
+        cout << "Enter the priority of process: ";
+        cin >> prt;
+        newnode->prior = prt;
+        newnode->next = head;
+        head = newnode;
+    }
+    return head;
+}
+void displaylist(process** array, int M) {
+    for (int i = 0; i < M; i++) {
+        cout << "List " << i + 1 << ": ";
+        process* current = array[i];
+        while (current != NULL) {
+            cout << "[ID:" << current->id << ", PRIOR:" << current->prior << "] ";
+            current = current->next;
+        }
+    }
+}
+void reverseAllLists(process** array, int M) {
+    for (int i = 0; i < M; i++) {
+        array[i] = reverseList(array[i]);
+    }
+}
+process* reverseList(process* head) {
+    process* prev = NULL;   
+    process* current = head; 
+    process* next = NULL;    
+    while (current != NULL) {
+        next = current->next; 
+        current->next = prev; 
+        prev = current;       
+        current = next;       
+    }
+    return prev; 
+}
+void removepriority(process** array, int M, int val) {
+    for (int i = 0; i < M; ++i) {
+        process* current = array[i];
+        process* prev = NULL;
+        bool removed = false;
+
+        while (current != NULL && !removed) { 
+            if (current->prior == val) {
+                if (prev == NULL) { 
+                    array[i] = current->next;
+                    delete current;
+                    current = array[i]; 
+                } else { 
+                    prev->next = current->next;
+                    delete current;
+                    current = prev->next; 
+                }
+                removed = true; 
+            } else {
+                prev = current;
+                current = current->next;
+            }
+        }
+    }
+}
+void freelist(process** array, int M) {
+    for (int i = 0; i < M; ++i) {
+        process* current = array[i];
+        while (current != NULL) {
+            process* temp = current;
+            current = current->next;
+            delete temp;
+        }
+    }
+}
